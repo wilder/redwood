@@ -5,5 +5,6 @@ import android.graphics.Bitmap
 interface ImageFilter {
 
     fun apply(bitmap: Bitmap): Bitmap
+    fun getName(): String
 
 }

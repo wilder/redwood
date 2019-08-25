@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun displayFilters(filters: List<ImageFilter>) {
         effectsRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = FilterRecyclerViewAdapter(filters) { filter -> imageManager.applyFilter(filter)}
         }
         effectsRecyclerView.visibility = View.VISIBLE
     }
