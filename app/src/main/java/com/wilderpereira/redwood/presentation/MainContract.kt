@@ -7,6 +7,8 @@ import com.wilderpereira.redwood.domain.ImageFilter
 interface MainContract {
 
     interface View {
+        fun displayLoadingView()
+        fun hideLoadingView()
         fun displayImage(image: Bitmap)
         fun displayFilters(filters: List<ImageFilter>)
         fun displaySelectedImageError()

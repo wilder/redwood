@@ -10,7 +10,7 @@ import com.wilderpereira.redwood.domain.MedianFilter
 class ImageProcessingPresenter(val view: MainContract.View, val imageResolver: ImageResolver) :
     MainContract.Presenter {
 
-    val imageManager = ImageManager()
+    private val imageManager = ImageManager()
 
     override fun loadFilters() {
         val filters = listOf(
@@ -29,7 +29,9 @@ class ImageProcessingPresenter(val view: MainContract.View, val imageResolver: I
     }
 
     override fun applyFilter(filter: ImageFilter) {
+        view.displayLoadingView()
         view.displayImage(imageManager.applyFilter(filter))
+        view.hideLoadingView()
     }
 
 }

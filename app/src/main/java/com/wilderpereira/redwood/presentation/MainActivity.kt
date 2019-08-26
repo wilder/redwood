@@ -51,6 +51,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
+    override fun displayLoadingView() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadingView() {
+        progressBar.visibility = View.GONE
+    }
+
     override fun displaySelectedImageError() {
     }
 
