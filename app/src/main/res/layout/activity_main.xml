@@ -16,7 +16,7 @@
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/effectsRecyclerView" android:scaleType="fitCenter"/>
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="395dp"
+            android:layout_width="0dp"
             android:layout_height="95dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
