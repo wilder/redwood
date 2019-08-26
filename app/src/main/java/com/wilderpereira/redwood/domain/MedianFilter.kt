@@ -1,6 +1,7 @@
 package com.wilderpereira.redwood.domain
 
 import android.graphics.Bitmap
+import android.graphics.Color
 
 class MedianFilter : ImageFilter {
 
@@ -15,12 +16,29 @@ class MedianFilter : ImageFilter {
             }
         }
 
-        neighborsPixels.sort()
+        val red = mutableListOf<Int>()
+        val green = mutableListOf<Int>()
+        val blue = mutableListOf<Int>()
+
+        neighborsPixels.forEach {
+            red.add(Color.red(it))
+            green.add(Color.green(it))
+            blue.add(Color.blue(it))
+        }
+
+        red.sort()
+        green.sort()
+        blue.sort()
+
         val middle = neighborsPixels.size / 2
         return if (middle % 2 == 1) {
-            neighborsPixels[middle]
+            Color.rgb(red[middle], green[middle], blue[middle])
         } else {
-            (neighborsPixels[middle - 1] + neighborsPixels[middle]) / 2
+            Color.rgb(
+            (red[middle - 1] + red[middle]) / 2,
+            (green[middle - 1] + green[middle]) / 2,
+            (blue[middle - 1] + blue[middle]) / 2
+            )
         }
 
     }

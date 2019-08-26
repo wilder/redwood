@@ -1,6 +1,7 @@
 package com.wilderpereira.redwood.domain
 
 import android.graphics.Bitmap
+import android.graphics.Color
 
 class MeanFilter : ImageFilter {
 
@@ -15,7 +16,21 @@ class MeanFilter : ImageFilter {
             }
         }
 
-        return neighborsPixels.sum() / neighborsPixels.size
+        var red = 0
+        var green = 0
+        var blue = 0
+
+        neighborsPixels.forEach {
+            red += Color.red(it)
+            green += Color.green(it)
+            blue += Color.blue(it)
+        }
+
+        red /= neighborsPixels.size
+        green /= neighborsPixels.size
+        blue /= neighborsPixels.size
+
+        return Color.rgb(red, green, blue)
 
     }
 
