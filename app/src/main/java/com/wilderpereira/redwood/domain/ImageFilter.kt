@@ -14,23 +14,11 @@ interface ImageFilter {
     fun apply(originalBitmap: Bitmap): Bitmap {
         val newBitmap = originalBitmap.copy(originalBitmap.config, true)
 
-        val defered = GlobalScope.async {
-            val deferred = mutableListOf<Deferred<Unit>>()
-
-            for (line in 0 until newBitmap.width) {
-                for (column in 0 until newBitmap.height) {
-                    deferred.add(GlobalScope.async {
-                        val newPixelValue = filter(originalBitmap, line, column)
-                        newBitmap.setPixel(line, column, newPixelValue)
-                    })
-                }
+        for (line in 0 until newBitmap.width) {
+            for (column in 0 until newBitmap.height) {
+                val newPixelValue = filter(originalBitmap, line, column)
+                newBitmap.setPixel(line, column, newPixelValue)
             }
-
-            deferred.map { it.await() }
-        }
-
-        runBlocking {
-            defered.await()
         }
 
         return newBitmap
