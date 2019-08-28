@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Redwood</string>
+    <string name="rgbHistogram">rgbHistogram</string>
+    <string name="no_image_provided">No image provided</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -2,7 +2,7 @@ package com.wilderpereira.redwood.domain
 
 import android.graphics.Color
 
-class Histogram {
+class RgbHistogram {
 
     private val redPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
     private val greenPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
@@ -45,8 +45,14 @@ class Histogram {
         }
     }
 
-    fun getAsMap(): Map<Int, Long> {
-        return redPixelOccurrenceMap.toMap()
+    fun getRedHistogram() = redPixelOccurrenceMap.toMap()
+
+    fun getGreenHistogram() = greenPixelOccurrenceMap.toMap()
+
+    fun getblueHistogram() = bluePixelOccurrenceMap.toMap()
+
+    override fun toString(): String {
+        return "'red' : ${getRedHistogram()},\n'green': ${getGreenHistogram()},\n'blue': ${getblueHistogram()}"
     }
 
 }

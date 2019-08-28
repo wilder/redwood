@@ -2,6 +2,7 @@ package com.wilderpereira.redwood.presentation
 
 import android.graphics.Bitmap
 import android.net.Uri
+import com.wilderpereira.redwood.domain.RgbHistogram
 import com.wilderpereira.redwood.domain.ImageFilter
 
 interface MainContract {
@@ -12,6 +13,8 @@ interface MainContract {
         fun displayImage(image: Bitmap)
         fun displayFilters(filters: List<ImageFilter>)
         fun displaySelectedImageError()
+        fun displayHistogram(rgbHistogram: RgbHistogram)
+        fun displayHistogramError()
     }
 
     interface Presenter {
@@ -19,6 +22,7 @@ interface MainContract {
         fun handleSelectedImage(uri: Uri?)
         fun applyFilter(filter: ImageFilter)
         fun changeBrightness(value: Int)
+        fun buildHistogram()
     }
 
 }

@@ -5,7 +5,6 @@ import com.wilderpereira.redwood.BrightnessFilter
 class ImageManager {
 
     lateinit var currentImage: Bitmap
-
     private val brightnessFilter = BrightnessFilter()
 
     fun applyFilter(filter: ImageFilter): Bitmap {
@@ -15,6 +14,15 @@ class ImageManager {
     fun changeBrightness(brightnessValue: Int): Bitmap {
         brightnessFilter.setBrightnessValue(brightnessValue)
         return brightnessFilter.apply(currentImage)
+    }
+
+    fun buildHistogram(): RgbHistogram {
+        return if (this::currentImage.isInitialized) {
+            HistogramBuilder(currentImage).build()
+        } else {
+            //TODO: custom error
+            throw Exception("No image selected")
+        }
     }
 
 

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
@@ -13,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wilderpereira.redwood.R
 import com.wilderpereira.redwood.data.AndroidImageResolver
 import com.wilderpereira.redwood.domain.ImageFilter
+import com.wilderpereira.redwood.domain.RgbHistogram
 import com.wilderpereira.redwood.helpers.PICK_IMAGE
 import com.wilderpereira.redwood.helpers.selectImage
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -30,6 +32,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             ImageProcessingPresenter(this, AndroidImageResolver(contentResolver))
         setupImageView()
         setupSeekBar()
+    }
+
+    private fun setupImageView() {
+        imageView.setOnClickListener {
+            if (hasSetImage) {
+                //TODO: showOriginalImage()
+            } else {
+                selectImage(this)
+                hasSetImage = true
+            }
+        }
     }
 
     private fun setupSeekBar() {
@@ -70,25 +83,42 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
+    override fun displayHistogram(histogram: RgbHistogram) {
+        Toast.makeText(this, histogram.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun displayHistogramError() {
+        Toast.makeText(this, R.string.no_image_provided, Toast.LENGTH_SHORT).show()
+    }
+
     override fun displayLoadingView() {
         progressBar.visibility = View.VISIBLE
+        Log.d("Main", "loading")
     }
 
     override fun hideLoadingView() {
+        Log.d("Main", "hiding")
         progressBar.visibility = View.GONE
+        Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show()
     }
 
     override fun displaySelectedImageError() {
     }
 
-    private fun setupImageView() {
-        imageView.setOnClickListener {
-            if (hasSetImage) {
-                //TODO: showOriginalImage()
-            } else {
-                selectImage(this)
-                hasSetImage = true
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_histogram -> {
+                presenter.buildHistogram()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

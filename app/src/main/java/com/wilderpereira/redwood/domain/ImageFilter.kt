@@ -1,7 +1,6 @@
 package com.wilderpereira.redwood.domain
 
 import android.graphics.Bitmap
-import kotlinx.coroutines.*
 
 interface ImageFilter {
 
