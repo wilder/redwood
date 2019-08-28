@@ -9,15 +9,12 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.wilderpereira.redwood.R
 import com.wilderpereira.redwood.domain.RgbHistogram
-
-
-
+import com.wilderpereira.redwood.R
 
 private const val histogramParam = "histogramParam"
 
@@ -33,64 +30,43 @@ class HistogramFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_histogram, container, false)
-        drawChart(view.findViewById(R.id.redBarChart), histogram!!.getRedHistogram())
-        drawChart(view.findViewById(R.id.greenBarChart), histogram!!.getGreenHistogram())
-        drawChart(view.findViewById(R.id.blueBarChart), histogram!!.getblueHistogram())
+        drawChart(view.findViewById(R.id.redBarChart), histogram!!.getRedHistogram(), "Red")
+        drawChart(view.findViewById(R.id.greenBarChart), histogram!!.getGreenHistogram(), "Green")
+        drawChart(view.findViewById(R.id.blueBarChart), histogram!!.getblueHistogram(), "Blue")
         return view
     }
 
-    private fun drawChart(barChart: BarChart, colorFrequency: Map<Int, Long>) {
-        barChart.setDrawBarShadow(false)
-        barChart.setDrawValueAboveBar(true)
-        barChart.setMaxVisibleValueCount(2048)
-        barChart.setPinchZoom(false)
-        barChart.setDrawGridBackground(false)
+    private fun drawChart(barChart: BarChart, colorFrequency: Map<Int, Long>, color: String) {
+        val barEntry = mutableListOf<BarEntry>()
+        val barEntryLabels = ArrayList<String>()
 
-        val xl = barChart.xAxis
-        xl.granularity = 1f
-        xl.setCenterAxisLabels(true)
-
-        val leftAxis = barChart.axisLeft
-        leftAxis.setDrawGridLines(false)
-        leftAxis.spaceTop = 30f
-        barChart.axisRight.isEnabled = false
-
-        //data
-        val barWidth = 0.46f
-
-        val minValue = 0
-        val maxValue = 255
-
-        val yVals1 = ArrayList<BarEntry>()
-
-        for (x in minValue until maxValue) {
+        for (x in 0 until 256) {
             var barValue = 0L
             if (colorFrequency.containsKey(x)) {
                 barValue = colorFrequency[x]!!
             }
-            yVals1.add(BarEntry(x.toFloat(), barValue.toFloat()))
+            barEntry.add(BarEntry(x.toFloat(), barValue.toFloat()))
+            barEntryLabels.add("$x")
         }
 
-        val set1: BarDataSet
+        val barDataSet = BarDataSet(barEntry, "$color Pixels")
+        val barData = BarData(barDataSet)
+        barData.calcMinMaxY(0.toFloat(), 255.toFloat())
 
-        if (barChart.data != null && barChart.data.dataSetCount > 0) {
-            set1 = barChart.data.getDataSetByIndex(0) as BarDataSet
-            set1.values = yVals1
-            barChart.data.notifyDataChanged()
-            barChart.notifyDataSetChanged()
-        } else {
-            set1 = BarDataSet(yVals1, "Pixel value")
-            set1.color = Color.rgb(104, 241, 175)
-
-            val dataSets = ArrayList<IBarDataSet>()
-            dataSets.add(set1)
-
-            val data = BarData(dataSets)
-            barChart.data = data
+        barDataSet.color = when(color.toLowerCase()) {
+            "red" -> Color.RED
+            "green" -> Color.GREEN
+            "blue" -> Color.BLUE
+            else -> Color.BLACK
         }
 
-        barChart.barData.barWidth = barWidth
-        barChart.invalidate()
+        barChart.axisLeft.axisMinimum = 0f
+        barChart.axisRight.axisMinimum = 0f
+        barChart.axisRight.isEnabled = false
+        barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        barChart.data = barData
+        barChart.description.isEnabled = false
+        barChart.animateY(3000)
     }
 
 
