@@ -1,8 +1,10 @@
 package com.wilderpereira.redwood.domain
 
 import android.graphics.Color
+import android.os.Parcel
+import android.os.Parcelable
 
-class RgbHistogram {
+class RgbHistogram() : Parcelable {
 
     private val redPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
     private val greenPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
@@ -55,4 +57,25 @@ class RgbHistogram {
         return "'red' : ${getRedHistogram()},\n'green': ${getGreenHistogram()},\n'blue': ${getblueHistogram()}"
     }
 
+    constructor(source: Parcel) : this() {
+        source.readMap(redPixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
+        source.readMap(greenPixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
+        source.readMap(bluePixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
+    }
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeMap(redPixelOccurrenceMap as Map<Int, Long>)
+        writeMap(greenPixelOccurrenceMap as Map<Int, Long>)
+        writeMap(bluePixelOccurrenceMap as Map<Int, Long>)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<RgbHistogram> = object : Parcelable.Creator<RgbHistogram> {
+            override fun createFromParcel(source: Parcel): RgbHistogram = RgbHistogram(source)
+            override fun newArray(size: Int): Array<RgbHistogram?> = arrayOfNulls(size)
+        }
+    }
 }
