@@ -1,6 +1,7 @@
 package com.wilderpereira.redwood.presentation
 
 import android.net.Uri
+import com.wilderpereira.redwood.BrightnessFilter
 import com.wilderpereira.redwood.domain.ImageFilter
 import com.wilderpereira.redwood.domain.ImageManager
 import com.wilderpereira.redwood.data.ImageResolver
@@ -32,6 +33,10 @@ class ImageProcessingPresenter(val view: MainContract.View, val imageResolver: I
         view.displayLoadingView()
         view.displayImage(imageManager.applyFilter(filter))
         view.hideLoadingView()
+    }
+
+    override fun changeBrightness(value: Int) {
+        view.displayImage(imageManager.changeBrightness(value))
     }
 
 }

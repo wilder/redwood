@@ -18,6 +18,7 @@ interface MainContract {
         fun loadFilters()
         fun handleSelectedImage(uri: Uri?)
         fun applyFilter(filter: ImageFilter)
+        fun changeBrightness(value: Int)
     }
 
 }

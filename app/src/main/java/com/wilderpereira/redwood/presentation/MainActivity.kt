@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wilderpereira.redwood.R
@@ -26,10 +29,26 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter =
             ImageProcessingPresenter(this, AndroidImageResolver(contentResolver))
         setupImageView()
+        setupSeekBar()
+    }
+
+    private fun setupSeekBar() {
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekbar: SeekBar?, value: Int, p2: Boolean) {
+                presenter.changeBrightness(value)
+            }
+
+            override fun onStartTrackingTouch(seekbar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
 
     override fun displayImage(image: Bitmap) {
         this.imageView.setImageBitmap(image)
+        seekBar.visibility = View.VISIBLE
         this.presenter.loadFilters()
     }
 
