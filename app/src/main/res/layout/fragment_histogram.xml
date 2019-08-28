@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".HistogramFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="26dp"
+              android:background="#ffffff"
+              android:orientation="vertical"
+              tools:context=".presentation.HistogramFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/redBarChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/greenBarChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:visibility="gone"/>
 
-</FrameLayout>
+    <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/blueBarChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+</RelativeLayout>

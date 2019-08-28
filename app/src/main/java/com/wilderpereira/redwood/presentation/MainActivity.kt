@@ -84,7 +84,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun displayHistogram(histogram: RgbHistogram) {
-        Toast.makeText(this, histogram.toString(), Toast.LENGTH_LONG).show()
+        HistogramFragment.newInstance(histogram)
+            .show(supportFragmentManager, "histogramDialog")
     }
 
     override fun displayHistogramError() {
