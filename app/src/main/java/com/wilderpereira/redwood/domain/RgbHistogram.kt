@@ -6,14 +6,14 @@ import android.os.Parcelable
 
 class RgbHistogram() : Parcelable {
 
-    private val redPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
-    private val greenPixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
-    private val bluePixelOccurrenceMap: MutableMap<Int, Long> = mutableMapOf()
+    private val redPixelOccurrence: MutableList<Long> = MutableList(256) {0L}
+    private val greenPixelOccurrence: MutableList<Long> = MutableList(256) {0L}
+    private val bluePixelOccurrence: MutableList<Long> = MutableList(256) {0L}
 
     private val colorPixelOccurrenceMap = mapOf(
-        Color.RED to redPixelOccurrenceMap,
-        Color.GREEN to greenPixelOccurrenceMap,
-        Color.BLUE to bluePixelOccurrenceMap
+        Color.RED to redPixelOccurrence,
+        Color.GREEN to greenPixelOccurrence,
+        Color.BLUE to bluePixelOccurrence
     )
 
     fun registerOccurrence(pixel: Int) {
@@ -40,35 +40,33 @@ class RgbHistogram() : Parcelable {
 
     private fun registerOccurrence(key: Int, color: Int) {
         val colorMap = colorPixelOccurrenceMap[color] ?: error("Invalid color map")
-        if (!colorMap.containsKey(key)) {
-            colorMap[key] = 1
-        } else {
-            colorMap[key] = colorMap[key]!! + 1
+        if (key in 0..255) {
+            colorMap[key] = colorMap[key] + 1
         }
     }
 
-    fun getRedHistogram() = redPixelOccurrenceMap.toMap()
+    fun getRedHistogram() = redPixelOccurrence.toList()
 
-    fun getGreenHistogram() = greenPixelOccurrenceMap.toMap()
+    fun getGreenHistogram() = greenPixelOccurrence.toList()
 
-    fun getblueHistogram() = bluePixelOccurrenceMap.toMap()
+    fun getblueHistogram() = bluePixelOccurrence.toList()
 
     override fun toString(): String {
         return "'red' : ${getRedHistogram()},\n'green': ${getGreenHistogram()},\n'blue': ${getblueHistogram()}"
     }
 
     constructor(source: Parcel) : this() {
-        source.readMap(redPixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
-        source.readMap(greenPixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
-        source.readMap(bluePixelOccurrenceMap as Map<Int, Long>, Long::class.java.classLoader)
+        source.readList(redPixelOccurrence as List<Long>, Long::class.java.classLoader)
+        source.readList(greenPixelOccurrence as List<Long>, Long::class.java.classLoader)
+        source.readList(bluePixelOccurrence as List<Long>, Long::class.java.classLoader)
     }
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeMap(redPixelOccurrenceMap as Map<Int, Long>)
-        writeMap(greenPixelOccurrenceMap as Map<Int, Long>)
-        writeMap(bluePixelOccurrenceMap as Map<Int, Long>)
+        writeList(redPixelOccurrence as List<Long>)
+        writeList(greenPixelOccurrence as List<Long>)
+        writeList(bluePixelOccurrence as List<Long>)
     }
 
     companion object {

@@ -36,16 +36,13 @@ class HistogramFragment : DialogFragment() {
         return view
     }
 
-    private fun drawChart(barChart: BarChart, colorFrequency: Map<Int, Long>, color: String) {
+    private fun drawChart(barChart: BarChart, colorFrequency: List<Long>, color: String) {
         val barEntry = mutableListOf<BarEntry>()
         val barEntryLabels = ArrayList<String>()
 
         for (x in 0 until 256) {
-            var barValue = 0L
-            if (colorFrequency.containsKey(x)) {
-                barValue = colorFrequency[x]!!
-            }
-            barEntry.add(BarEntry(x.toFloat(), barValue.toFloat()))
+            val barValue = colorFrequency[x].toFloat()
+            barEntry.add(BarEntry(x.toFloat(), barValue))
             barEntryLabels.add("$x")
         }
 
