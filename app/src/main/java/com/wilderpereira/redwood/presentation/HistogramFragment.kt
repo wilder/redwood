@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.wilderpereira.redwood.domain.RgbHistogram
 import com.wilderpereira.redwood.R
+import com.wilderpereira.redwood.helpers.getColorFromColorName
 import kotlinx.android.synthetic.main.fragment_histogram.*
 
 
@@ -91,15 +92,6 @@ class HistogramFragment : DialogFragment() {
         barChart.description.isEnabled = false
         barChart.animateY(3000)
         barChart.visibility = View.VISIBLE
-    }
-
-    private fun getColorFromColorName(color: String): Int {
-        return when (color.toLowerCase()) {
-            "red" -> Color.RED
-            "green" -> Color.GREEN
-            "blue" -> Color.BLUE
-            else -> Color.BLACK
-        }
     }
 
 
