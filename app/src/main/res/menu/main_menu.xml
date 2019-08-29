@@ -3,5 +3,6 @@
     <item android:id="@+id/menu_histogram"
           android:icon="@drawable/ic_histogram"
           android:title="@string/rgbHistogram"
+          android:iconTint="@android:color/darker_gray"
           app:showAsAction="ifRoom"/>
 </menu>

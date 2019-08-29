@@ -82,7 +82,9 @@ class HistogramFragment : DialogFragment() {
         val barData = BarData(listOf(barDataSet))
         barData.calcMinMaxY(0.toFloat(), 255.toFloat())
 
-        barDataSet.color = getColorFromColorName(color)
+        val color = getColorFromColorName(color)
+        barDataSet.color = color
+        dialog_title.setBackgroundColor(color)
 
         barChart.axisLeft.axisMinimum = 0f
         barChart.axisRight.axisMinimum = 0f
