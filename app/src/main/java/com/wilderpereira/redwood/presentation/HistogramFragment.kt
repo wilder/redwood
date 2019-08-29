@@ -15,11 +15,16 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.wilderpereira.redwood.domain.RgbHistogram
 import com.wilderpereira.redwood.R
+import kotlinx.android.synthetic.main.fragment_histogram.*
+
 
 private const val histogramParam = "histogramParam"
 
 class HistogramFragment : DialogFragment() {
     private var histogram: RgbHistogram? = null
+    private lateinit var charts: List<BarChart>
+    private lateinit var histograms: List<List<Long>>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +35,36 @@ class HistogramFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_histogram, container, false)
-        drawChart(view.findViewById(R.id.redBarChart), histogram!!.getRedHistogram(), "Red")
-        drawChart(view.findViewById(R.id.greenBarChart), histogram!!.getGreenHistogram(), "Green")
-        drawChart(view.findViewById(R.id.blueBarChart), histogram!!.getblueHistogram(), "Blue")
+
+        charts = listOf(
+            view.findViewById(R.id.redBarChart),
+            view.findViewById(R.id.greenBarChart),
+            view.findViewById(R.id.blueBarChart)
+        )
+
+        histograms = listOf(
+            histogram!!.getRedHistogram(),
+            histogram!!.getGreenHistogram(),
+            histogram!!.getblueHistogram()
+        )
+
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mtb.setOnValueChangedListener { position ->
+            hideCharts()
+            val colorName = mtb.texts[position].toString()
+            drawChart(charts[position], histograms[position], colorName)
+            mtb.setColors(getColorFromColorName(colorName), resources.getColor(android.R.color.white))
+        }
+        mtb.setElements(R.array.rgb, 1)
+        mtb.value = 1
+    }
+
+    fun hideCharts() {
+        charts.map { it.visibility = View.GONE }
     }
 
     private fun drawChart(barChart: BarChart, colorFrequency: List<Long>, color: String) {
@@ -47,15 +78,10 @@ class HistogramFragment : DialogFragment() {
         }
 
         val barDataSet = BarDataSet(barEntry, "$color Pixels")
-        val barData = BarData(barDataSet)
+        val barData = BarData(listOf(barDataSet))
         barData.calcMinMaxY(0.toFloat(), 255.toFloat())
 
-        barDataSet.color = when(color.toLowerCase()) {
-            "red" -> Color.RED
-            "green" -> Color.GREEN
-            "blue" -> Color.BLUE
-            else -> Color.BLACK
-        }
+        barDataSet.color = getColorFromColorName(color)
 
         barChart.axisLeft.axisMinimum = 0f
         barChart.axisRight.axisMinimum = 0f
@@ -64,6 +90,16 @@ class HistogramFragment : DialogFragment() {
         barChart.data = barData
         barChart.description.isEnabled = false
         barChart.animateY(3000)
+        barChart.visibility = View.VISIBLE
+    }
+
+    private fun getColorFromColorName(color: String): Int {
+        return when (color.toLowerCase()) {
+            "red" -> Color.RED
+            "green" -> Color.GREEN
+            "blue" -> Color.BLUE
+            else -> Color.BLACK
+        }
     }
 
 

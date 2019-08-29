@@ -1,28 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="26dp"
-              android:background="#ffffff"
-              android:orientation="vertical"
-              tools:context=".presentation.HistogramFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:mstb="http://schemas.android.com/apk/res-auto"
+                android:layout_margin="26dp"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                tools:context=".presentation.HistogramFragment">
 
-    <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/redBarChart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/greenBarChart"
+    <LinearLayout
+            android:weightSum="13"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/blueBarChart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
+        <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:background="@color/colorPrimary">
+            <TextView
+                    android:layout_margin="8dp"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:text="@string/pixel_histogram"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="11">
+            <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/redBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/greenBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/blueBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+        </LinearLayout>
+
+        <org.honorato.multistatetogglebutton.MultiStateToggleButton
+                android:id="@+id/mtb"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                mstb:values="@array/rgb"
+                mstb:mstbPrimaryColor="@android:color/holo_red_light"
+                mstb:mstbSecondaryColor="@color/gray"
+        />
+
+    </LinearLayout>
 
 </RelativeLayout>
