@@ -9,6 +9,7 @@ class RgbHistogram() : Parcelable {
     private val redPixelOccurrence: MutableList<Long> = MutableList(256) {0L}
     private val greenPixelOccurrence: MutableList<Long> = MutableList(256) {0L}
     private val bluePixelOccurrence: MutableList<Long> = MutableList(256) {0L}
+    val rgbPixelOccurrences = listOf(redPixelOccurrence, greenPixelOccurrence, bluePixelOccurrence)
 
     private val colorPixelOccurrenceMap = mapOf(
         Color.RED to redPixelOccurrence,
@@ -24,6 +25,20 @@ class RgbHistogram() : Parcelable {
         registerRedOccurrence(redPixel)
         registerGreenOccurrence(greenPixel)
         registerBlueOccurrence(bluePixel)
+    }
+
+    fun computeCumulativeHistogram(): List<List<Long>> {
+        return this.rgbPixelOccurrences.map { computeCumulativeFrequency(it) }
+    }
+
+    private fun computeCumulativeFrequency(frequency: MutableList<Long>): List<Long> {
+        val cumulative = mutableListOf<Long>()
+        frequency.fold(0L, {acc, it ->
+            val currentValue = acc + it
+            cumulative.add(currentValue)
+            currentValue
+        })
+        return cumulative
     }
 
     private fun registerRedOccurrence(value: Int) {
