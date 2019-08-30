@@ -21,7 +21,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
 
     override fun handleSelectedImage(uri: Uri?) {
         if (uri != null) {
-            imageManager.currentImage = imageResolver.loadImageFromUri(uri)
+            imageManager.loadImage(imageResolver.loadImageFromUri(uri))
             view.displayImage(imageManager.currentImage)
         } else {
             view.displaySelectedImageError()
@@ -40,7 +40,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
 
     override fun buildHistogram() {
         try {
-            view.displayHistogram(imageManager.buildHistogram())
+            view.displayHistogram(imageManager.currentHistogram)
         } catch (exception: Exception) {
             view.displayHistogramError()
         }
