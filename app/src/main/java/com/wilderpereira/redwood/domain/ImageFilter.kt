@@ -7,7 +7,7 @@ interface ImageFilter {
     val neighborsPosition: List<Pair<Int, Int>>
         get() = listOf(
             Pair(-1, -1), Pair(-1, 1), Pair(-1, 0), Pair(0, -1),
-            Pair(0, 1), Pair(1, -1), Pair(1, 1), Pair(1, 0)
+            Pair(0, 1), Pair(1, -1), Pair(1, 1), Pair(1, 0), Pair(0, 0)
         )
 
     fun apply(originalBitmap: Bitmap): Bitmap {
