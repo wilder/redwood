@@ -34,18 +34,29 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         supportActionBar!!.setIcon(R.mipmap.ic_launcher_round)
         presenter =
             ImageProcessingPresenter(this, AndroidImageResolver(contentResolver))
+        setupSelectImageTextView()
         setupImageView()
         setupSeekBar()
     }
 
+    private fun setupSelectImageTextView() {
+        selectImageTv.setOnClickListener {
+            selectImageClickListener()
+        }
+    }
+
     private fun setupImageView() {
         imageView.setOnClickListener {
-            if (hasSetImage) {
-                //TODO: showOriginalImage()
-            } else {
-                selectImage(this)
-                hasSetImage = true
-            }
+            selectImageClickListener()
+        }
+    }
+
+    private fun selectImageClickListener() {
+        if (hasSetImage) {
+            //TODO: showOriginalImage()
+        } else {
+            selectImage(this)
+            hasSetImage = true
         }
     }
 
@@ -66,6 +77,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun displayImage(image: Bitmap) {
         this.imageView.setImageBitmap(image)
         seekBar.visibility = View.VISIBLE
+        selectImageTv.visibility = View.INVISIBLE
         this.presenter.loadFilters()
     }
 

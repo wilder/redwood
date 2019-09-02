@@ -8,4 +8,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pixel_histogram">Pixel Histogram</string>
     <string name="reset">Reset</string>
+    <string name="tap_to_select_an_image">Tap to select an image</string>
 </resources>
