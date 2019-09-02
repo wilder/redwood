@@ -13,7 +13,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
         val filters = listOf(
             MeanFilter(), MedianFilter(), EqualizationFilter(imageManager.currentHistogram)
         )
-        view.displayFilters(filters )
+        view.displayFilters(filters)
     }
 
     override fun handleSelectedImage(uri: Uri?) {
@@ -41,6 +41,11 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
         } catch (exception: Exception) {
             view.displayHistogramError()
         }
+    }
+
+    override fun removeAllFilters() {
+        imageManager.reset()
+        view.displayImage(imageManager.originalImage)
     }
 
 }

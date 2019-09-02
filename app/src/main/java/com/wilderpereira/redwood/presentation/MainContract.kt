@@ -23,6 +23,7 @@ interface MainContract {
         fun applyFilter(filter: ImageFilter)
         fun changeBrightness(value: Int)
         fun buildHistogram()
+        fun removeAllFilters()
     }
 
 }

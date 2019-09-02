@@ -35,6 +35,9 @@ class ImageManager {
         }
     }
 
+    fun reset() {
+        this.currentImage = originalImage
+    }
 
 }
 

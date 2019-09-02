@@ -123,6 +123,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 presenter.buildHistogram()
                 true
             }
+            R.id.menu_reset -> {
+                presenter.removeAllFilters()
+                seekBar.progress = 128
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
