@@ -20,6 +20,10 @@ App to demonstrate the algorithms from SIN5014 Graphics Processing Fundamentals 
 <a><img src="https://github.com/wilder/redwood/blob/master/screenshots/noisy-median.png" width="250"></a>
 <a><img src="https://github.com/wilder/redwood/blob/master/screenshots/noisy-mean.png" width="250"></a>
 
-##### Change Brightness
+### Equalization
+<a><img src="https://github.com/wilder/redwood/blob/master/screenshots/xray1.png" width="250"></a>
+<a><img src="https://github.com/wilder/redwood/blob/master/screenshots/xray2.png" width="250"></a>
+
+### Change Brightness
 <a><img src="https://github.com/wilder/redwood/blob/master/screenshots/bright.png" width="250"></a>
 <a><img src="https://github.com/wilder/redwood/blob/master/screenshots/bright2.png" width="250"></a>
