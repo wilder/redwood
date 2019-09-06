@@ -46,7 +46,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
         try {
             view.displayHistogram(imageManager.currentHistogram)
         } catch (exception: Exception) {
-            view.displayHistogramError()
+            view.displayImageNotSelectedError()
         }
     }
 
@@ -60,7 +60,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
         try {
             imageManager.save()
         } catch (exception: Exception) {
-            view.displayHistogramError()
+            view.displayImageNotSelectedError()
         }
         view.hideLoadingView()
     }

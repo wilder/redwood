@@ -14,7 +14,7 @@ interface MainContract {
         fun displayFilters(filters: List<ImageFilter>)
         fun displaySelectedImageError()
         fun displayHistogram(rgbHistogram: RgbHistogram)
-        fun displayHistogramError()
+        fun displayImageNotSelectedError()
     }
 
     interface Presenter {

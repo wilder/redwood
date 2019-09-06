@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             .show(supportFragmentManager, "histogramDialog")
     }
 
-    override fun displayHistogramError() {
+    override fun displayImageNotSelectedError() {
         Toast.makeText(this, R.string.no_image_provided, Toast.LENGTH_SHORT).show()
     }
 
