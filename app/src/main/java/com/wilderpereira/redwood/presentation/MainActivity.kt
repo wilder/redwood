@@ -14,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wilderpereira.redwood.R
 import com.wilderpereira.redwood.data.AndroidImageResolver
-import com.wilderpereira.redwood.domain.ImageFilter
 import com.wilderpereira.redwood.domain.RgbHistogram
+import com.wilderpereira.redwood.domain.filters.ImageFilter
+import com.wilderpereira.redwood.helpers.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
 import com.wilderpereira.redwood.helpers.PICK_IMAGE
 import com.wilderpereira.redwood.helpers.selectImage
 import kotlinx.android.synthetic.main.activity_main.*

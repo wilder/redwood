@@ -3,7 +3,7 @@ package com.wilderpereira.redwood.presentation
 import android.graphics.Bitmap
 import android.net.Uri
 import com.wilderpereira.redwood.domain.RgbHistogram
-import com.wilderpereira.redwood.domain.ImageFilter
+import com.wilderpereira.redwood.domain.filters.ImageFilter
 
 interface MainContract {
 

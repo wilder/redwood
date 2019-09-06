@@ -1,8 +1,14 @@
 package com.wilderpereira.redwood.presentation
 
+import android.content.Context
 import android.net.Uri
 import com.wilderpereira.redwood.data.ImageResolver
-import com.wilderpereira.redwood.domain.*
+import com.wilderpereira.redwood.domain.ImageManager
+import com.wilderpereira.redwood.domain.filters.EqualizationFilter
+import com.wilderpereira.redwood.domain.filters.ImageFilter
+import com.wilderpereira.redwood.domain.filters.MeanFilter
+import com.wilderpereira.redwood.domain.filters.MedianFilter
+
 
 class ImageProcessingPresenter(private val view: MainContract.View, private val imageResolver: ImageResolver) :
     MainContract.Presenter {
@@ -11,7 +17,9 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
 
     override fun loadFilters() {
         val filters = listOf(
-            MeanFilter(), MedianFilter(), EqualizationFilter(imageManager.currentHistogram)
+            MeanFilter(),
+            MedianFilter(),
+            EqualizationFilter(imageManager.currentHistogram)
         )
         view.displayFilters(filters)
     }

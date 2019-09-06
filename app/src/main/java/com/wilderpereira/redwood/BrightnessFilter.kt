@@ -2,7 +2,7 @@ package com.wilderpereira.redwood
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import com.wilderpereira.redwood.domain.ImageFilter
+import com.wilderpereira.redwood.domain.filters.ImageFilter
 
 class BrightnessFilter : ImageFilter {
 

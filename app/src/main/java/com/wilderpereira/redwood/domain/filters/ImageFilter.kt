@@ -1,4 +1,4 @@
-package com.wilderpereira.redwood.domain
+package com.wilderpereira.redwood.domain.filters
 
 import android.graphics.Bitmap
 

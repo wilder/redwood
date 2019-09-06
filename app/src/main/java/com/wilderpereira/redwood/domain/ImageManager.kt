@@ -1,6 +1,12 @@
 package com.wilderpereira.redwood.domain
 import android.graphics.Bitmap
 import com.wilderpereira.redwood.BrightnessFilter
+import com.wilderpereira.redwood.domain.filters.ImageFilter
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 class ImageManager {
 

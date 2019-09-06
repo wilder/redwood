@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wilderpereira.redwood.R
-import com.wilderpereira.redwood.domain.ImageFilter
+import com.wilderpereira.redwood.domain.filters.ImageFilter
 import kotlinx.android.synthetic.main.item_filter.view.*
 
 class FilterRecyclerViewAdapter(private val filters: List<ImageFilter>, private val action: (ImageFilter) -> Unit)

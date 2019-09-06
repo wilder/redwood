@@ -1,11 +1,13 @@
-package com.wilderpereira.redwood.domain
+package com.wilderpereira.redwood.domain.filters
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import com.wilderpereira.redwood.domain.RgbHistogram
 import kotlin.math.floor
 import kotlin.math.max
 
-class EqualizationFilter(private val histogram: RgbHistogram) : ImageFilter {
+class EqualizationFilter(private val histogram: RgbHistogram) :
+    ImageFilter {
 
     private var equalizedHistograms: List<List<Int>>
 
