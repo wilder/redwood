@@ -10,4 +10,8 @@
           android:title="@string/rgbHistogram"
           android:iconTint="@android:color/darker_gray"
           app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_save"
+          android:title="@string/save"
+          android:iconTint="@android:color/darker_gray"
+          app:showAsAction="never"/>
 </menu>

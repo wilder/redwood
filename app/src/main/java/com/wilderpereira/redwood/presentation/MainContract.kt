@@ -24,6 +24,7 @@ interface MainContract {
         fun changeBrightness(value: Int)
         fun buildHistogram()
         fun removeAllFilters()
+        fun saveCurrentImage()
     }
 
 }

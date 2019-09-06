@@ -1,7 +1,9 @@
 package com.wilderpereira.redwood.presentation
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +20,7 @@ import com.wilderpereira.redwood.domain.RgbHistogram
 import com.wilderpereira.redwood.domain.filters.ImageFilter
 import com.wilderpereira.redwood.helpers.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
 import com.wilderpereira.redwood.helpers.PICK_IMAGE
+import com.wilderpereira.redwood.helpers.requestPermission
 import com.wilderpereira.redwood.helpers.selectImage
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -141,7 +144,25 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 seekBar.progress = 128
                 true
             }
+            R.id.menu_save -> {
+                requestPermission(this, Manifest.permission.READ_CONTACTS) {
+                    presenter.saveCurrentImage()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    presenter.saveCurrentImage()
+                } else {
+                    //TODO: display error
+                }
+            }
         }
     }
 

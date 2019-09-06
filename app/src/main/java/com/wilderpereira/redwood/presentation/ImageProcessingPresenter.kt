@@ -1,6 +1,5 @@
 package com.wilderpereira.redwood.presentation
 
-import android.content.Context
 import android.net.Uri
 import com.wilderpereira.redwood.data.ImageResolver
 import com.wilderpereira.redwood.domain.ImageManager
@@ -54,6 +53,16 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
     override fun removeAllFilters() {
         imageManager.reset()
         view.displayImage(imageManager.originalImage)
+    }
+
+    override fun saveCurrentImage() {
+        view.displayLoadingView()
+        try {
+            imageManager.save()
+        } catch (exception: Exception) {
+            view.displayHistogramError()
+        }
+        view.hideLoadingView()
     }
 
 }

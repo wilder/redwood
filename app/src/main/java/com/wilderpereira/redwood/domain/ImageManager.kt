@@ -1,5 +1,6 @@
 package com.wilderpereira.redwood.domain
 import android.graphics.Bitmap
+import android.os.Environment
 import com.wilderpereira.redwood.BrightnessFilter
 import com.wilderpereira.redwood.domain.filters.ImageFilter
 import java.io.File
@@ -43,6 +44,42 @@ class ImageManager {
 
     fun reset() {
         this.currentImage = originalImage
+    }
+
+    fun save() {
+        if (this::currentImage.isInitialized) {
+            saveToInternalStorage(this.currentImage)
+        } else {
+            //TODO: no image selected error
+            throw Exception("No image selected")
+        }
+    }
+
+    private fun saveToInternalStorage(bitmapImage: Bitmap) {
+
+        var outStream: FileOutputStream?
+
+        // TODO: remove Enviroment dependency, extract to other class
+        try {
+            val sdCard = Environment.getExternalStorageDirectory()
+            val dir = File(sdCard.absolutePath + "/redwood")
+            dir.mkdirs()
+
+            val fileName = String.format("%d.jpg", System.currentTimeMillis())
+            val outFile = File(dir, fileName)
+
+            outStream = FileOutputStream(outFile)
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+            outStream!!.flush()
+            outStream.close()
+
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+        }
+
     }
 
 }
