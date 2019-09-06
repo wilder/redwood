@@ -30,7 +30,6 @@ class ImageManager {
     fun loadImage(image: Bitmap) {
         this.originalImage = image
         this.currentImage = image
-        this.currentHistogram = buildHistogram()
     }
 
     fun buildHistogram(): RgbHistogram {

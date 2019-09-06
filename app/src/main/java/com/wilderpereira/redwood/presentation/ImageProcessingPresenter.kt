@@ -18,7 +18,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
         val filters = listOf(
             MeanFilter(),
             MedianFilter(),
-            EqualizationFilter(imageManager.currentHistogram)
+            EqualizationFilter(imageManager.buildHistogram())
         )
         view.displayFilters(filters)
     }
@@ -44,7 +44,7 @@ class ImageProcessingPresenter(private val view: MainContract.View, private val 
 
     override fun buildHistogram() {
         try {
-            view.displayHistogram(imageManager.currentHistogram)
+            view.displayHistogram(imageManager.buildHistogram())
         } catch (exception: Exception) {
             view.displayImageNotSelectedError()
         }
